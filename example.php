@@ -5,7 +5,7 @@ include __DIR__.'/vendor/autoload.php';
 use Discord\Discord;
 
 $discord = new Discord([
-    'token' => 'OTE4NjEwNzAzNjA1MTgyNDY1.YbJw4g.gIFEZztMdfuUmt-LXb0hDTIfYqw'
+    'token' => 'TOKEN GOES HERE'
 ]);
 
 $discord->on('ready', function ($discord) { 
