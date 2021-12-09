@@ -1,0 +1,17 @@
+{
+    "propel": {
+        "database": {
+            "connections": {
+                "default": {
+                    "adapter": "mysql",
+                    "dsn": "CONNECTION_STRING",
+                    "user": "DB_USER",
+                    "password": "DB_PASSWPRD",
+                    "settings": {
+                        "charset": "utf8"
+                    }
+                }
+            }
+        }
+    }
+}

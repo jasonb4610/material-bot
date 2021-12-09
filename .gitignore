@@ -1,0 +1,4 @@
+vendor/*
+generated-conf/config.php
+propel.json
+
