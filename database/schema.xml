@@ -1,41 +1,82 @@
 <database name="default" defaultIdMethod="native"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
-          namespace="MaterialBot"
-        >
-    <table name="book" phpName="Book">
-        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
-        <column name="title" type="varchar" size="255" required="true"/>
-        <column name="isbn" type="varchar" size="24" required="true" phpName="ISBN"/>
-        <column name="publisher_id" type="integer" required="true"/>
-        <column name="author_id" type="integer" required="true"/>
-        <foreign-key foreignTable="publisher" phpName="Publisher" refPhpName="Book">
-            <reference local="publisher_id" foreign="id"/>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.6/database.xsd"
+    namespace="MaterialBot">
+
+    <table name="user" phpName="User">
+        <column name="id" type="integer" required="true"
+            primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="255"
+            required="true" />
+        <column name="password_hash" type="varchar" size="255"
+            required="true" />
+        <behavior name="timestampable" />
+    </table>
+
+    <table name="character" phpName="Character">
+        <column name="id" type="integer" required="true"
+            primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="255"
+            required="true" />
+        <column name="user_id" type="integer" required="false" />
+        <column name="armor_type_id" type="integer"
+            required="true" />
+        <foreign-key foreignTable="user">
+            <reference local="user_id" foreign="id" />
         </foreign-key>
-        <foreign-key foreignTable="author">
-            <reference local="author_id" foreign="id"/>
+        <foreign-key foreignTable="armor_type">
+            <reference local="armor_type_id" foriegn="id" />
         </foreign-key>
+        <behavior name="timestampable" />
     </table>
 
-    <table name="author" phpName="Author">
-        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
-        <column name="first_name" type="varchar" size="128" required="true"/>
-        <column name="last_name" type="varchar" size="128" required="true"/>
+    <table name="armor_type" phpName="ArmorType">
+        <column name="id" type="integer" required="true"
+            primaryKey="true" autoIncrement="true" />
+        <column name="description" type="varchar" size="255"
+            required="true" />
+        <behavior name="timestampable" />
     </table>
 
-    <table name="publisher" phpName="Publisher">
-        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
-        <column name="name" type="varchar" size="128" required="true"/>
+    <table name="item" phpName="Item">
+        <column name="id" type="integer" required="true"
+            primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="255"
+            required="true" />
+        <column name="icon" type="varchar" size="255"
+            required="true" />
+        <column name="link" type="varchar" size="255"
+            required="true" />
+        <column name="armor_type_id" type="integer"
+            required="true" />
+        <foreign-key foreignTable="armor_type">
+            <reference local="armor_type_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
     </table>
 
+    <table name="item_material_requirements"
+        phpName="ItemMaterialRequirements">
+        <column name="id" type="integer" required="true"
+            primaryKey="true" autoIncrement="true" />
+        <column name="item_id" type="integer" required="true" />
+        <column name="material_id" type="integer" required="true" />
+        <column name="quantity" type="integer" required="true" />
+        <foreign-key foreignTable="item">
+            <reference local="item_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="material">
+            <reference local="material_id" foreign="id" />
+        </foreign-key>
+        <behavior name="timestampable" />
+    </table>
 
-    <!--
-        When you're done with editing, open a terminal and run
-            `$ cd database`
-            `$ vendor/bin/propel build`
-        to generate the model classes.
+    <table name="material" phpName="Material">
+        <column name="id" type="integer" required="true"
+            primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="255"
+            required="true" />
+        <behavior name="timestampable" />
+    </table>
 
-        You should now be able to perform basic crud operations with your models. To learn how to use these models
-        please look into our documentation: http://propelorm.org/documentation/03-basic-crud.html
-    -->
 </database>
